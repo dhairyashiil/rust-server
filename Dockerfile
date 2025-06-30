@@ -17,7 +17,7 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy binary from builder
-COPY --from=builder /usr/local/cargo/bin/your-binary-name /usr/local/bin/your-binary-name
+COPY --from=builder /usr/local/cargo/bin/rust /usr/local/bin/rust
 
 # Set environment variables
 ENV RUST_LOG=info
@@ -27,4 +27,4 @@ ENV PORT=3000
 EXPOSE $PORT
 
 # Run binary
-CMD ["your-binary-name"]
+CMD ["rust"]
