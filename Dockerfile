@@ -1,5 +1,5 @@
-# Build stage
-FROM rust:1.75 as builder
+# Build stage - using newer Rust version
+FROM rust:1.77 as builder
 
 # Install MUSL for static linking
 RUN apt-get update && \
@@ -7,9 +7,16 @@ RUN apt-get update && \
     rustup target add x86_64-unknown-linux-musl
 
 WORKDIR /usr/src/app
-COPY . .
 
-# Build release with MUSL
+# Copy only what's needed for dependencies
+COPY Cargo.toml Cargo.lock .
+RUN mkdir -p src && \
+    echo 'fn main() {}' > src/main.rs && \
+    cargo build --target x86_64-unknown-linux-musl --release && \
+    rm -rf target/x86_64-unknown-linux-musl/release/deps/rust*
+
+# Now copy real source
+COPY src ./src
 RUN cargo build --target x86_64-unknown-linux-musl --release
 
 # Runtime stage
