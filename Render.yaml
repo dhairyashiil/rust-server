@@ -2,7 +2,7 @@ services:
   - type: web
     name: solana-balance-checker
     runtime: docker
-    repo: https://github.com/your-username/your-repo
+    repo: https://github.com/dhairyashiil/rust-server
     autoDeploy: true
     port: 3000
     env: docker
