@@ -1,5 +1,5 @@
-# Use a specific older Rust version
-FROM rust:1.70 as builder
+# Use newer Rust version that supports 2024 edition
+FROM rust:1.75 as builder
 
 # Install MUSL for static linking
 RUN apt-get update && apt-get install -y musl-tools
